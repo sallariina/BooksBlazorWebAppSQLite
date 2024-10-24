@@ -1,0 +1,23 @@
+﻿@inherits LayoutComponentBase
+
+<div class="page">
+    <div style="background-image:none;background: rgb(5,33,93);
+background: linear-gradient(180deg, rgba(5,33,93,1) 0%, rgba(24,84,158,1) 41%, rgba(78,170,215,1) 100%);" class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
