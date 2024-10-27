@@ -1,4 +1,5 @@
 ﻿@page "/books/details"
+@rendermode InteractiveServer
 @using Microsoft.EntityFrameworkCore
 @using BlazorWebAppBooks.Models
 @inject IDbContextFactory<BlazorWebAppBooks.Data.BlazorWebAppBooksContext> DbFactory
@@ -27,8 +28,8 @@
             <dd class="col-sm-10">@book.Author</dd>
         </dl>
         <div>
-            <a href="@($"/books/edit?id={book.Id}")">Edit</a> |
-            <a href="@($"/books")">Back to List</a>
+            <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.Edit(book, NavigationManager)"> Edit </Button>
+            <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.Back(NavigationManager)"> Back </Button>
         </div>
     }
 </div>

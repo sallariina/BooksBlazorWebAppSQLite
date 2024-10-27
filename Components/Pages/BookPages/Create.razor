@@ -36,13 +36,9 @@
                 <InputText id="author" @bind-Value="Book.Author" class="form-control" /> 
                 <ValidationMessage For="() => Book.Author" class="text-danger" /> 
             </div>        
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Create</button>  <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.Back(NavigationManager)"> Back </Button>
         </EditForm>
     </div>
-</div>
-
-<div>
-    <a href="/books">Back to List</a>
 </div>
 
 @code {

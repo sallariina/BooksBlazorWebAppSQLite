@@ -1,4 +1,5 @@
 ﻿@page "/books/delete"
+@rendermode InteractiveServer
 @using Microsoft.EntityFrameworkCore
 @using BlazorWebAppBooks.Models
 @inject IDbContextFactory<BlazorWebAppBooks.Data.BlazorWebAppBooksContext> DbFactory
@@ -34,8 +35,8 @@
             <dd class="col-sm-10">@book.Author</dd>
         </dl>
         <EditForm method="post" Model="book" OnValidSubmit="DeleteBook" FormName="delete" Enhance>
-            <button type="submit" class="btn btn-danger" disabled="@(book is null)">Delete</button> |
-            <a href="/books">Back to List</a>
+            <button type="submit" class="btn btn-danger" disabled="@(book is null)">Delete</button>
+            <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.Back(NavigationManager)"> Back </Button>
         </EditForm>
     }
 </div>
