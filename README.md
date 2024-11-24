@@ -1,10 +1,12 @@
 ## BooksBlazorWebAppSQLite
--Blazor Web App
--SQLite database
--Blazor Bootstrap
 
-Book database web app based originally on this tutorial of movie database, but I made some changes:
+*Blazor Web App <br/>
+*SQLite database <br/>
+*Blazor Bootstrap
+
+***
+Book database web app based originally on this tutorial of movie database: <br/>
 https://learn.microsoft.com/en-us/aspnet/core/blazor/tutorials/movie-database-app
 
-Uses Blazor Bootstrap:
+Uses Blazor Bootstrap: <br/>
 https://docs.blazorbootstrap.com/
