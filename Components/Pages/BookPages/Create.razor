@@ -45,6 +45,11 @@
     [SupplyParameterFromForm]
     private Book Book { get; set; } = new();
 
+    protected override async Task OnInitializedAsync()
+    {
+        Book.ReleaseDate = DateOnly.FromDateTime(DateTime.Today);
+        await base.OnInitializedAsync();
+    }
 
     private async Task AddBook()
     {
