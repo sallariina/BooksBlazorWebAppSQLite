@@ -26,10 +26,10 @@
             <dt class="col-sm-2">Release Date</dt>
             <dd class="col-sm-10">@book.ReleaseDate</dd>
         </dl>
-        <dl class="row">
+@*         <dl class="row">
             <dt class="col-sm-2">Genre</dt>
             <dd class="col-sm-10">@book.Genre</dd>
-        </dl>
+        </dl> *@
         <dl class="row">
             <dt class="col-sm-2">Author</dt>
             <dd class="col-sm-10">@book.Author</dd>
@@ -43,6 +43,8 @@
 
 @code {
     private Book? book;
+    private BookGenre? bookGenre;
+    private List<BookGenre> bookGenres = new List<BookGenre>();
 
     [SupplyParameterFromQuery]
     private int Id { get; set; }
@@ -56,12 +58,16 @@
         {
             NavigationManager.NavigateTo("notfound");
         }
+
+        bookGenre = await context.BookGenre.FirstOrDefaultAsync(m => m.Book.Id == Id);
+        bookGenres.Add(bookGenre);
     }
 
     private async Task DeleteBook()
     {
         using var context = DbFactory.CreateDbContext();
         context.Book.Remove(book!);
+        context.BookGenre.RemoveRange(bookGenres);
         await context.SaveChangesAsync();
         NavigationManager.NavigateTo("/books");
     }

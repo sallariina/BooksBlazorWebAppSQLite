@@ -16,8 +16,8 @@ namespace BlazorWebAppBooks.Models
 
         public DateOnly ReleaseDate { get; set; }
 
-        [Required]
-        [StringLength(30)]
-        public string? Genre { get; set; }
+        //[Required]
+        //[StringLength(30)]
+        //public string? Genre { get; set; }
     }
 }

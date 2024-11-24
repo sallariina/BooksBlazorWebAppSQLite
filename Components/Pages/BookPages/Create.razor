@@ -26,11 +26,11 @@
                 <InputDate id="releasedate" @bind-Value="Book.ReleaseDate" class="form-control" /> 
                 <ValidationMessage For="() => Book.ReleaseDate" class="text-danger" /> 
             </div>        
-            <div class="mb-3">
+@*             <div class="mb-3">
                 <label for="genre" class="form-label">Genre:</label> 
                 <InputText id="genre" @bind-Value="Book.Genre" class="form-control" /> 
                 <ValidationMessage For="() => Book.Genre" class="text-danger" /> 
-            </div>        
+            </div>   *@      
             <div class="mb-3">
                 <label for="author" class="form-label">Author:</label> 
                 <InputText id="author" @bind-Value="Book.Author" class="form-control" /> 
@@ -44,6 +44,7 @@
 @code {
     [SupplyParameterFromForm]
     private Book Book { get; set; } = new();
+    private BookGenre BookGenre { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -53,9 +54,20 @@
 
     private async Task AddBook()
     {
+
         using var context = DbFactory.CreateDbContext();
-        context.Book.Add(Book);
-        await context.SaveChangesAsync();
+        try
+        {
+            BookGenre.Genre = context.Genre.Where(x => x.Name.ToLower()!.Contains("romance")).First();
+            context.Book.Add(Book);
+            await context.SaveChangesAsync();
+            BookGenre.Book = Book;
+            context.BookGenre.Add(BookGenre);
+            await context.SaveChangesAsync();
+        }catch(Exception e)
+        {
+            
+        }
         NavigationManager.NavigateTo("/books");
     }
 }
