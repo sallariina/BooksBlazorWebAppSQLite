@@ -1,8 +1,8 @@
 ## BooksBlazorWebAppSQLite
 
-*Blazor Web App <br/>
-*SQLite database <br/>
-*Blazor Bootstrap
+* Blazor Web App (.NET 8)<br/>
+* SQLite database <br/>
+* Blazor Bootstrap
 
 ***
 Book database web app based originally on this tutorial of movie database: <br/>
