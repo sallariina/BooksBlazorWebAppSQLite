@@ -1,0 +1,43 @@
+﻿@page "/genres/create"
+@using Microsoft.EntityFrameworkCore
+@using BlazorWebAppBooks.Models
+@inject IDbContextFactory<BlazorWebAppBooks.Data.BlazorWebAppBooksContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Genre</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Genre" OnValidSubmit="AddGenre" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label> 
+                <InputText id="name" @bind-Value="Genre.Name" class="form-control" aria-required="true"/> 
+                <ValidationMessage For="() => Genre.Name" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/genres">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Genre Genre { get; set; } = new();
+
+    private async Task AddGenre()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Genre.Add(Genre);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/genres");
+    }
+}

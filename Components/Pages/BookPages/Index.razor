@@ -9,7 +9,8 @@
 @inject NavigationManager NavigationManager
 
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Books</PageTitle>
+<h1>Books</h1>
 
 <p>
     <input type="search" @bind="titleFilter" @bind:event="oninput" />
@@ -25,9 +26,9 @@
     <PropertyColumn Property="book => book.Author" Sortable="true" />
 
     <TemplateColumn Context="book">
-        <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.Edit(book, NavigationManager)"> Edit </Button>
-        <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.Details(book, NavigationManager)"> Details </Button>
-        <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.Delete(book, NavigationManager)"> Delete </Button>
+        <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.EditBook(book, NavigationManager)"> Edit </Button>
+        <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.DetailsBook(book, NavigationManager)"> Details </Button>
+        <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.DeleteBook(book, NavigationManager)"> Delete </Button>
     </TemplateColumn>
 </QuickGrid>
 <Paginator State="pagination" />

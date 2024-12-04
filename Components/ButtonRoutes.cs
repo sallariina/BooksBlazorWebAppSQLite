@@ -24,5 +24,25 @@ namespace BlazorWebAppBooks.Components
             navman.NavigateTo($"books/");
         }
 
+        //BookRoutes
+        public static void BackBook(NavigationManager navman)
+        {
+            navman.NavigateTo($"books/");
+        }
+        public static void DeleteBook(Book book, NavigationManager navman)
+        {
+            navman.NavigateTo($"books/delete?id={book.Id}");
+        }
+        public static void DetailsBook(Book book, NavigationManager navman)
+        {
+            navman.NavigateTo($"books/details?id={book.Id}");
+        }
+        public static void EditBook(Book book, NavigationManager navman)
+        {
+            navman.NavigateTo($"books/edit?id={book.Id}");
+        }
+
+        //GenreRoutes
+
     }
 }

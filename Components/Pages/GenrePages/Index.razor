@@ -1,0 +1,38 @@
+﻿@page "/genres"
+@rendermode InteractiveServer
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using BlazorWebAppBooks.Models
+@using BlazorWebAppBooks.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<BlazorWebAppBooks.Data.BlazorWebAppBooksContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Genres</PageTitle>
+
+<h1>Genres</h1>
+
+<p>
+    <a href="genres/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Genre">
+    <PropertyColumn Property="genre => genre.Name" />
+
+    <TemplateColumn Context="genre">
+        <a href="@($"genres/edit?id={genre.Id}")">Edit</a> |
+        <a href="@($"genres/details?id={genre.Id}")">Details</a> |
+        <a href="@($"genres/delete?id={genre.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private BlazorWebAppBooksContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

@@ -36,7 +36,7 @@
         </dl>
         <EditForm method="post" Model="book" OnValidSubmit="DeleteBook" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(book is null)">Delete</button>
-            <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.Back(NavigationManager)"> Back </Button>
+            <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.BackBook(NavigationManager)"> Back </Button>
         </EditForm>
     }
 </div>
