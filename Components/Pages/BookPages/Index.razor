@@ -14,9 +14,8 @@
 
 <p>
     <input type="search" @bind="titleFilter" @bind:event="oninput" />
-    <button type="button" class="btn btn-primary" @onclick="@(()=>NavigationManager.NavigateTo("books/create"))">Create New</button>
+    <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.CreateBook(NavigationManager)"> Create New </Button>
 </p>
-
 
 
 <QuickGrid Class="table" Items="FilteredBooks" Pagination="pagination">

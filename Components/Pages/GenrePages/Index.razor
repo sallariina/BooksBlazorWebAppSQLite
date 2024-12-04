@@ -13,11 +13,13 @@
 <h1>Genres</h1>
 
 <p>
+    <input type="search" @bind="titleFilter" @bind:event="oninput" />
     <a href="genres/create">Create New</a>
+    <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.CreateGenre(NavigationManager)"> Create New </Button>
 </p>
 
-<QuickGrid Class="table" Items="context.Genre">
-    <PropertyColumn Property="genre => genre.Name" />
+<QuickGrid Class="table" Items="FilteredGenres" Pagination="pagination">
+    <PropertyColumn Property="genre => genre.Name" Sortable="true"/>
 
     <TemplateColumn Context="genre">
         <a href="@($"genres/edit?id={genre.Id}")">Edit</a> |
@@ -25,8 +27,14 @@
         <a href="@($"genres/delete?id={genre.Id}")">Delete</a>
     </TemplateColumn>
 </QuickGrid>
+<Paginator State="pagination" />
 
 @code {
+    private string titleFilter = string.Empty;
+
+    private IQueryable<Genre> FilteredGenres =>
+        context.Genre.Where(x => x.Name.ToLower()!.Contains(titleFilter.ToLower()));
+
     private BlazorWebAppBooksContext context = default!;
 
     protected override void OnInitialized()
@@ -35,4 +43,6 @@
     }
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
+
+    private PaginationState pagination = new PaginationState { ItemsPerPage = 15 };
 }

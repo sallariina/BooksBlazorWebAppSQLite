@@ -29,6 +29,10 @@ namespace BlazorWebAppBooks.Components
         {
             navman.NavigateTo($"books/");
         }
+        public static void CreateBook(NavigationManager navman)
+        {
+            navman.NavigateTo($"books/create");
+        }
         public static void DeleteBook(Book book, NavigationManager navman)
         {
             navman.NavigateTo($"books/delete?id={book.Id}");
@@ -43,6 +47,25 @@ namespace BlazorWebAppBooks.Components
         }
 
         //GenreRoutes
-
+        public static void BackGenre(NavigationManager navman)
+        {
+            navman.NavigateTo($"genres/");
+        }
+        public static void CreateGenre(NavigationManager navman)
+        {
+            navman.NavigateTo($"genres/create");
+        }
+        public static void DeleteGenre(Genre genre, NavigationManager navman)
+        {
+            navman.NavigateTo($"genres/delete?id={genre.Id}");
+        }
+        public static void DetailsGenre(Genre genre, NavigationManager navman)
+        {
+            navman.NavigateTo($"genres/details?id={genre.Id}");
+        }
+        public static void EditGenre(Genre genre, NavigationManager navman)
+        {
+            navman.NavigateTo($"genres/edit?id={genre.Id}");
+        }
     }
 }
