@@ -1,4 +1,5 @@
 ﻿@page "/genres/details"
+@rendermode InteractiveServer
 @using Microsoft.EntityFrameworkCore
 @using BlazorWebAppBooks.Models
 @inject IDbContextFactory<BlazorWebAppBooks.Data.BlazorWebAppBooksContext> DbFactory
@@ -21,8 +22,8 @@
             <dd class="col-sm-10">@genre.Name</dd>
         </dl>
         <div>
-            <a href="@($"/genres/edit?id={genre.Id}")">Edit</a> |
-            <a href="@($"/genres")">Back to List</a>
+            <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.EditGenre(genre, NavigationManager)"> Edit </Button>
+            <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.BackGenre(NavigationManager)"> Back </Button>
         </div>
     }
 </div>

@@ -14,17 +14,16 @@
 
 <p>
     <input type="search" @bind="titleFilter" @bind:event="oninput" />
-    <a href="genres/create">Create New</a>
     <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.CreateGenre(NavigationManager)"> Create New </Button>
 </p>
 
-<QuickGrid Class="table" Items="FilteredGenres" Pagination="pagination">
+<QuickGrid Class="table table-hover" Items="FilteredGenres" Pagination="pagination">
     <PropertyColumn Property="genre => genre.Name" Sortable="true"/>
 
     <TemplateColumn Context="genre">
-        <a href="@($"genres/edit?id={genre.Id}")">Edit</a> |
-        <a href="@($"genres/details?id={genre.Id}")">Details</a> |
-        <a href="@($"genres/delete?id={genre.Id}")">Delete</a>
+        <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.EditGenre(genre, NavigationManager)"> Edit </Button>
+        @* <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.DetailsGenre(genre, NavigationManager)"> Details </Button> *@
+        <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.DeleteGenre(genre, NavigationManager)"> Delete </Button>
     </TemplateColumn>
 </QuickGrid>
 <Paginator State="pagination" />
