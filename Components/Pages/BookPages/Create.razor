@@ -18,8 +18,10 @@
             <ValidationSummary class="text-danger" />
             <div class="mb-3">
                 <label for="title" class="form-label">Title:</label> 
-                <InputText id="title" @bind-Value="Book.Title" class="form-control" /> 
+                <InputText id="title" @bind-Value="Book.Title" @oninput="NameChanged" @onblur="NameChanged" class="form-control" /> 
+                @* <InputText id="title" @bind-Value="Book.Title" class="form-control" /> *@
                 <ValidationMessage For="() => Book.Title" class="text-danger" /> 
+                <p class="text-danger">@errorMessage</p>
             </div>        
             <div class="mb-3">
                 <label for="releasedate" class="form-label">Release Date:</label> 
@@ -45,6 +47,7 @@
     [SupplyParameterFromForm]
     private Book Book { get; set; } = new();
     private BookGenre BookGenre { get; set; } = new();
+    private String errorMessage = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -56,18 +59,30 @@
     {
 
         using var context = DbFactory.CreateDbContext();
-        try
+        var result = context.Book.FirstOrDefault(x => x.Title.ToLower() == Book.Title.ToLower());
+        if (result == null)
         {
-            BookGenre.Genre = context.Genre.Where(x => x.Name.ToLower()!.Contains("romance")).First();
-            context.Book.Add(Book);
-            await context.SaveChangesAsync();
-            BookGenre.Book = Book;
-            context.BookGenre.Add(BookGenre);
-            await context.SaveChangesAsync();
-        }catch(Exception e)
-        {
-            
+            try
+            {
+                BookGenre.Genre = context.Genre.Where(x => x.Name.ToLower()!.Contains("romance")).First();
+                context.Book.Add(Book);
+                await context.SaveChangesAsync();
+                BookGenre.Book = Book;
+                context.BookGenre.Add(BookGenre);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+            }
+            NavigationManager.NavigateTo("/books");
         }
-        NavigationManager.NavigateTo("/books");
+        else
+        {
+            errorMessage = "This book already exists";
+        }
+    }
+    private void NameChanged()
+    {
+        errorMessage = "";
     }
 }
