@@ -19,15 +19,14 @@
             <ValidationSummary class="text-danger" role="alert"/>
             <div class="mb-3">
                 <label for="name" class="form-label">Name:</label> 
-                <InputText id="name" @bind-Value="Genre.Name" class="form-control" aria-required="true"/> 
+                <InputText id="name" @bind-Value="Genre.Name" @oninput="NameChanged" @onblur="NameChanged" class="form-control" aria-required="true" />
                 <ValidationMessage For="() => Genre.Name" class="text-danger" /> 
-            </div>        
+            </div>   
+            <p class="text-danger">@errorMessage</p>
             <button type="submit" class="btn btn-primary">Create</button> <Button Color="ButtonColor.Primary" Outline="true" @onclick="args => ButtonRoutes.BackGenre(NavigationManager)"> Back </Button>
         </EditForm>
     </div>
 </div>
-
-<p>@errorMessage</p>
 
 @code {
     [SupplyParameterFromForm]
@@ -46,10 +45,12 @@
         }
         else
         {
-            
             errorMessage = "Genre already exists";
         }
+    }
 
-
+    private void NameChanged()
+    {
+        errorMessage = "";
     }
 }
