@@ -60,14 +60,20 @@
         }
 
         bookGenre = await context.BookGenre.FirstOrDefaultAsync(m => m.Book.Id == Id);
-        bookGenres.Add(bookGenre);
+        if (bookGenre is not null)
+        {
+            bookGenres.Add(bookGenre);
+        }
     }
 
     private async Task DeleteBook()
     {
         using var context = DbFactory.CreateDbContext();
         context.Book.Remove(book!);
-        context.BookGenre.RemoveRange(bookGenres);
+        if (bookGenre is not null)
+        {
+            context.BookGenre.RemoveRange(bookGenres);
+        }
         await context.SaveChangesAsync();
         NavigationManager.NavigateTo("/books");
     }
