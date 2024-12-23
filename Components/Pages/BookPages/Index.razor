@@ -21,7 +21,9 @@
 <QuickGrid Class="table table-hover" Items="FilteredBooks" Pagination="pagination">
     <PropertyColumn Property="book => book.Title" Sortable="true"/>
     <PropertyColumn Property="book => book.ReleaseDate" Title="Release Date" Sortable="true" />
-@*     <PropertyColumn Property="book => book.Genre" Sortable="true" /> *@
+    <TemplateColumn Title="Genre">
+        <p>@Genres(context)</p>
+    </TemplateColumn>
     <PropertyColumn Property="book => book.Author" Sortable="true" />
 
     <TemplateColumn Context="book">
@@ -33,7 +35,11 @@
 <Paginator State="pagination" />
 
 @code {
+    private Book? book;
     private string titleFilter = string.Empty;
+    private BookGenre? bookGenre;
+    private List<BookGenre> bookGenres = new List<BookGenre>();
+    private List<Genre> genres = new List<Genre>();
 
     private IQueryable<Book> FilteredBooks =>
         context.Book.Where(x => x.Title.ToLower()!.Contains(titleFilter.ToLower()));
@@ -43,6 +49,21 @@
     protected override void OnInitialized()
     {
         context = DbFactory.CreateDbContext();
+        bookGenres = context.BookGenre.ToList();
+        genres = context.Genre.ToList();
+    }
+
+    private string Genres(Book book)
+    {
+        string retval = "";
+        foreach (BookGenre bookGenre in bookGenres)
+        {
+            if (bookGenre.BookId == book.Id)
+            {
+                retval += genres.FirstOrDefault(x => x.Id == bookGenre.GenreId)?.Name;
+            }
+        }
+        return retval;
     }
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
