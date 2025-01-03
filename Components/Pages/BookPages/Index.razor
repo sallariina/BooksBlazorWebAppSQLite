@@ -54,16 +54,17 @@
     }
 
     private string Genres(Book book)
-    {
-        string retval = "";
+    {   
+        List<String> genres2 = new List<String>();
         foreach (BookGenre bookGenre in bookGenres)
         {
             if (bookGenre.BookId == book.Id)
             {
-                retval += genres.FirstOrDefault(x => x.Id == bookGenre.GenreId)?.Name;
+                genres2.Add(genres.Find(x => x.Id == bookGenre.GenreId)?.Name);
             }
         }
-        return retval;
+        genres2 = genres2.OrderBy(x => x).ToList();
+        return String.Join(", ", genres2.ToArray());
     }
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
